@@ -43,7 +43,6 @@ import triangle.abstractSyntaxTrees.commands.IfCommand;
 import triangle.abstractSyntaxTrees.commands.LetCommand;
 import triangle.abstractSyntaxTrees.commands.SequentialCommand;
 import triangle.abstractSyntaxTrees.commands.WhileCommand;
-import triangle.abstractSyntaxTrees.commands.SquareCommand;
 import triangle.abstractSyntaxTrees.declarations.ConstDeclaration;
 import triangle.abstractSyntaxTrees.declarations.Declaration;
 import triangle.abstractSyntaxTrees.declarations.FuncDeclaration;

@@ -168,13 +168,6 @@ public final class Scanner {
 		case '+':
 		case '-':
 		case '*':
-			takeIt();  // Consume the first '*'
-			if (currentChar == '*') { // Check if the next character is '*'
-			takeIt(); // Consume the second '*'
-			return Token.Kind.STARSTAR; // Return the STARSTAR token kind
-			} else {
-				return Token.Kind.OPERATOR; // Otherwise, return a single '*'
-				}
 		case '/':
 		case '=':
 		case '<':

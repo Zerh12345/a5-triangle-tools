@@ -123,13 +123,13 @@ public final class Checker implements ActualParameterVisitor<FormalParameter, Vo
 	// Always returns null. Does not use the given object.
 
 	@Override
-	public Void visitSquareCommand(SquareCommand command, Void arg) {
-    	// Check that the identifier being squared is declared and of type integer
-    	TypeDenoter varType = (TypeDenoter) command.identifier.visit(this, null);
-    	if (!varType.equals(StdEnvironment.integerType)) {
-        	reporter.reportError("Square operation can only be applied to integers.", "", command.getPosition());
-    	}
-    	return null;
+	public Object visitSquareCommand(SquareCommand command, Object o) {
+		// Check that the identifier being squared is declared and of type integer
+		TypeDenoter varType = (TypeDenoter) command.identifier.visit(this, null);
+		if (!varType.equals(StdEnvironment.integerType)) {
+			reporter.reportError("Square operation can only be applied to integers.", command.position);
+			}
+		return null;
 	}
 
 

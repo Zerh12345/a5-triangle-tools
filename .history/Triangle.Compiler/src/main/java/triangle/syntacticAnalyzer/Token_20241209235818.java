@@ -100,6 +100,5 @@ final class Token {
 	    
 	    private final static Kind firstReservedWord = ARRAY, lastReservedWord = WHILE;
 	}
-	public static final int STARSTAR = 34;
 
 }

@@ -7,12 +7,10 @@ import triangle.abstractSyntaxTrees.commands.IfCommand;
 import triangle.abstractSyntaxTrees.commands.LetCommand;
 import triangle.abstractSyntaxTrees.commands.SequentialCommand;
 import triangle.abstractSyntaxTrees.commands.WhileCommand;
-import triangle.abstractSyntaxTrees.commands.SquareCommand;
-
 
 public interface CommandVisitor<TArg, TResult> {
 
-	TResult visitSquareCommand(SquareCommand command, TArg arg);
+	TResult visitSquareCommand(SquareCommand ast, TArg arg);
 	
 	TResult visitAssignCommand(AssignCommand ast, TArg arg);
 

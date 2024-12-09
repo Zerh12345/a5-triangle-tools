@@ -51,7 +51,7 @@ final class Token {
 
 	public enum Kind {
 		// literals, identifiers, operators...
-		INTLITERAL("<int>"), CHARLITERAL("<char>"), IDENTIFIER("<identifier>"), OPERATOR("<operator>"), STARSTAR("**"),
+		INTLITERAL("<int>"), CHARLITERAL("<char>"), IDENTIFIER("<identifier>"), OPERATOR("<operator>"),
 
 		// reserved words - keep in alphabetical order for ease of maintenance...
 		ARRAY("array"), BEGIN("begin"), CONST("const"), DO("do"), ELSE("else"), END("end"), FUNC("func"), IF("if"), IN("in"), LET("let"), OF("of"),
@@ -100,6 +100,5 @@ final class Token {
 	    
 	    private final static Kind firstReservedWord = ARRAY, lastReservedWord = WHILE;
 	}
-	public static final int STARSTAR = 34;
 
 }

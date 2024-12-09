@@ -1,0 +1,6 @@
+var a : integer;
+begin
+  a := 4;
+  a**;  // Expected output: a = 16
+  outint(a, 1);
+end.

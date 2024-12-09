@@ -44,7 +44,6 @@ import triangle.abstractSyntaxTrees.commands.IfCommand;
 import triangle.abstractSyntaxTrees.commands.LetCommand;
 import triangle.abstractSyntaxTrees.commands.SequentialCommand;
 import triangle.abstractSyntaxTrees.commands.WhileCommand;
-import triangle.abstractSyntaxTrees.commands.SquareCommand;
 import triangle.abstractSyntaxTrees.declarations.BinaryOperatorDeclaration;
 import triangle.abstractSyntaxTrees.declarations.ConstDeclaration;
 import triangle.abstractSyntaxTrees.declarations.Declaration;
@@ -127,28 +126,6 @@ public final class Encoder implements ActualParameterVisitor<Frame, Integer>,
 		TypeDenoterVisitor<Frame, Integer>, VnameVisitor<Frame, RuntimeEntity> {
 
 	// Commands
-	@Override
-	public Void visitSquareCommand(SquareCommand command, Frame frame) {
-    	// Visit the identifier to get its runtime entity
-    	var entity = (RuntimeEntity) command.identifier.visit(this, null);
-
-    	// Load the variable onto the stack
-    	emitter.emit(OpCode.LOAD, Register.SB, entity.address);
-
-    	// Load the same variable again
-    	emitter.emit(OpCode.LOAD, Register.SB, entity.address);
-
-    	// Perform multiplication
-    	emitter.emit(OpCode.CALL, Register.PB, Primitive.MULT);
-
-    	// Store the result back into the variable
-    	emitter.emit(OpCode.STORE, Register.SB, entity.address);
-
-    	return null;
-		}
-
-
-
 	@Override
 	public Void visitAssignCommand(AssignCommand ast, Frame frame) {
 		var valSize = ast.E.visit(this, frame);

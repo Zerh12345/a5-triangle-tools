@@ -40,7 +40,6 @@ import triangle.abstractSyntaxTrees.commands.IfCommand;
 import triangle.abstractSyntaxTrees.commands.LetCommand;
 import triangle.abstractSyntaxTrees.commands.SequentialCommand;
 import triangle.abstractSyntaxTrees.commands.WhileCommand;
-import triangle.abstractSyntaxTrees.commands.SquareCommand;
 import triangle.abstractSyntaxTrees.declarations.BinaryOperatorDeclaration;
 import triangle.abstractSyntaxTrees.declarations.ConstDeclaration;
 import triangle.abstractSyntaxTrees.declarations.ConstantDeclaration;
@@ -123,14 +122,15 @@ public final class Checker implements ActualParameterVisitor<FormalParameter, Vo
 	// Always returns null. Does not use the given object.
 
 	@Override
-	public Void visitSquareCommand(SquareCommand command, Void arg) {
-    	// Check that the identifier being squared is declared and of type integer
-    	TypeDenoter varType = (TypeDenoter) command.identifier.visit(this, null);
-    	if (!varType.equals(StdEnvironment.integerType)) {
-        	reporter.reportError("Square operation can only be applied to integers.", "", command.getPosition());
-    	}
-    	return null;
-	}
+
+	public Object visitSquareCommand(SquareCommand command, Object o) {
+		// Check that the identifier being squared is declared and of type integer
+		TypeDenoter varType = (TypeDenoter) command.identifier.visit(this, null);
+		if (!varType.equals(StdEnvironment.integerType)) {
+			reporter.reportError("Square operation can only be applied to integers.", command.position);
+			}
+		return null;
+		}
 
 
 	@Override

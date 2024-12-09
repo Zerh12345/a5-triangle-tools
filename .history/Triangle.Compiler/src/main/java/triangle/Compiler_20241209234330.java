@@ -50,62 +50,56 @@ public class Compiler {
      * @return true iff the source program is free of compile-time errors, otherwise
      *         false.
      */
- static boolean compileProgram(String sourceName, String objectName, boolean showingAST, boolean showingTable) {
-    SourceFile source = loadSourceFile(sourceName);
-    initializeCompilationTools(source);
+    static boolean compileProgram(String sourceName, String objectName, boolean showingAST, boolean showingTable) {
 
-    theAST = parseProgram();
-    if (hasErrors()) return false;
+        System.out.println("********** " + "Triangle Compiler (Java Version 2.1)" + " **********");
 
-    performContextualAnalysis();
-    if (showingAST) drawer.draw(theAST);
+        System.out.println("Syntactic Analysis ...");
+        SourceFile source = SourceFile.ofPath(sourceName);
 
-    if (folding) applyFoldingOptimization();
+        if (source == null) {
+            System.out.println("Can't access source file " + sourceName);
+            System.exit(1);
+        }
 
-    return generateObjectCode(objectName, showingTable);
-}
+        scanner = new Scanner(source);
+        reporter = new ErrorReporter(false);
+        parser = new Parser(scanner, reporter);
+        checker = new Checker(reporter);
+        emitter = new Emitter(reporter);
+        encoder = new Encoder(emitter, reporter);
+        drawer = new Drawer();
 
-private static SourceFile loadSourceFile(String sourceName) {
-    SourceFile source = SourceFile.ofPath(sourceName);
-    if (source == null) {
-        System.out.println("Can't access source file " + sourceName);
-        System.exit(1);
+        // scanner.enableDebugging();
+        theAST = parser.parseProgram(); // 1st pass
+        if (reporter.getNumErrors() == 0) {
+            // if (showingAST) {
+            // drawer.draw(theAST);
+            // }
+            System.out.println("Contextual Analysis ...");
+            checker.check(theAST); // 2nd pass
+            if (showingAST) {
+                drawer.draw(theAST);
+            }
+            if (folding) {
+                theAST.visit(new ConstantFolder());
+            }
+            
+            if (reporter.getNumErrors() == 0) {
+                System.out.println("Code Generation ...");
+                encoder.encodeRun(theAST, showingTable); // 3rd pass
+            }
+        }
+
+        boolean successful = (reporter.getNumErrors() == 0);
+        if (successful) {
+            emitter.saveObjectProgram(objectName);
+            System.out.println("Compilation was successful.");
+        } else {
+            System.out.println("Compilation was unsuccessful.");
+        }
+        return successful;
     }
-    return source;
-}
-
-private static void initializeCompilationTools(SourceFile source) {
-    scanner = new Scanner(source);
-    reporter = new ErrorReporter(false);
-    parser = new Parser(scanner, reporter);
-    checker = new Checker(reporter);
-    emitter = new Emitter(reporter);
-    encoder = new Encoder(emitter, reporter);
-    drawer = new Drawer();
-}
-
-private static boolean hasErrors() {
-    return reporter.getNumErrors() > 0;
-}
-
-private static void performContextualAnalysis() {
-    checker.check(theAST);
-}
-
-private static void applyFoldingOptimization() {
-    theAST.visit(new ConstantFolder());
-}
-
-private static boolean generateObjectCode(String objectName, boolean showingTable) {
-    if (hasErrors()) return false;
-
-    encoder.encodeRun(theAST, showingTable);
-    boolean successful = !hasErrors();
-    if (successful) emitter.saveObjectProgram(objectName);
-
-    return successful;
-}
-
 
     /**
      * Triangle compiler main program.
