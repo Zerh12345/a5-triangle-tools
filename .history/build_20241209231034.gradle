@@ -13,19 +13,12 @@ subprojects.each { subproject ->
 
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    // Include runtime classpath and subprojects' outputs in the JAR
+    
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-    from subprojects.sourceSets.main.output
 
-    // Add the main class to the manifest
-    manifest {
-        attributes(
-            'Main-Class': 'triangle.Compiler'  // This should be the class with the main method
-        )
-    }
+    from subprojects.sourceSets.main.output
 }
 
 dependencies {

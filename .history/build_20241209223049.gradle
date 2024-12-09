@@ -1,0 +1,26 @@
+apply plugin: 'java'
+
+sourceCompatibility = 17
+
+// Define repositories to resolve dependencies
+repositories {
+    mavenCentral()  // This will allow Gradle to resolve dependencies from Maven Central
+}
+
+subprojects.each { subproject ->
+    evaluationDependsOn(subproject.path)
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    from subprojects.sourceSets.main.output
+}
+
+dependencies {
+    implementation project(':Triangle.Compiler')  // Make sure this project dependency is set
+}

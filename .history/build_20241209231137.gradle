@@ -23,7 +23,7 @@ jar {
     // Add the main class to the manifest
     manifest {
         attributes(
-            'Main-Class': 'triangle.Compiler'  // This should be the class with the main method
+            'Main-Class': 'triangle.Compiler'  // Make sure this points to the correct class with main() method
         )
     }
 }
