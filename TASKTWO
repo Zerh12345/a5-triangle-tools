@@ -1,0 +1,29 @@
+import org.apache.commons.cli.*;
+
+public class Compiler {
+    public static void main(String[] args) {
+        Options options = new Options();
+
+        options.addOption("objectName", true, "Object name");
+        options.addOption("showTree", false, "Show tree");
+        options.addOption("folding", false, "Enable folding");
+        options.addOption("showTreeAfter", false, "Show tree after folding");
+
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = null;
+
+        try {
+            cmd = parser.parse(options, args);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Handle options here
+        if (cmd.hasOption("objectName")) {
+            System.out.println("Object Name: " + cmd.getOptionValue("objectName"));
+        }
+        if (cmd.hasOption("showTree")) {
+            System.out.println("Show Tree");
+        }
+    }
+}
