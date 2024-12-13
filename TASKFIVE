@@ -1,0 +1,23 @@
+public class SummaryVisitor implements Visitor {
+    private int binaryExprCount = 0;
+    private int ifCount = 0;
+    private int whileCount = 0;
+
+    public void visit(BinaryExpression expr) {
+        binaryExprCount++;
+    }
+
+    public void visit(IfCommand cmd) {
+        ifCount++;
+    }
+
+    public void visit(WhileCommand cmd) {
+        whileCount++;
+    }
+
+    public void printStats() {
+        System.out.println("Binary Expressions: " + binaryExprCount);
+        System.out.println("If Commands: " + ifCount);
+        System.out.println("While Commands: " + whileCount);
+    }
+}
