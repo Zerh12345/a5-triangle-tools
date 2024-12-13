@@ -1,0 +1,11 @@
+@Test
+public void testIsOperator() {
+    assertTrue(scanner.isOperator('+'));
+    assertFalse(scanner.isOperator('a'));
+}
+
+@Test
+public void testIsLetter() {
+    assertTrue(scanner.isLetter('a'));
+    assertFalse(scanner.isLetter('1'));
+}
