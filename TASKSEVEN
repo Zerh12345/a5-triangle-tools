@@ -1,0 +1,3 @@
+if (operator == "==") {
+    return new BooleanLiteral(leftValue == rightValue);
+}
