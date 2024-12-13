@@ -1,0 +1,3 @@
+if (statement instanceof LoopWhileCommand) {
+    // Handle the loop execution logic
+}
