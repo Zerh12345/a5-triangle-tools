@@ -1,0 +1,4 @@
+// Pseudocode for parsing the 'a**' command
+if (expression == "**") {
+    return new Assignment(new Identifier("a"), new Multiplication(new Identifier("a"), new Identifier("a")));
+}
