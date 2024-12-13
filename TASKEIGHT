@@ -1,0 +1,6 @@
+public class HoistingVisitor implements Visitor {
+    public void visit(WhileLoop loop) {
+        // Find invariant expressions
+        // Move them outside the loop
+    }
+}
